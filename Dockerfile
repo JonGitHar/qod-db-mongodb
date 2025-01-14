@@ -5,8 +5,6 @@ ENV MONGO_INITDB_ROOT_PASSWORD=pass
 ENV MONGO_INITDB_DATABASE=qod
 
 COPY run.sh /run.sh
-COPY authors.json /data/authors.json
-COPY genres.json /data/genres.json
 COPY quotes.json /data/quotes.json
 
 RUN chmod +x /run.sh
