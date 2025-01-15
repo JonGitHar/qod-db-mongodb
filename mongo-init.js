@@ -1,4 +1,4 @@
-var dbName = _getEnv('MONGO_INITDB_DATABASE');
+var dbName = process.env.MONGO_INITDB_DATABASE
 
 var db = db.getSiblingDB(dbName);
 
