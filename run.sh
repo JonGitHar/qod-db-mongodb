@@ -3,7 +3,7 @@
 mkdir -p /data/db /var/log/mongodb
 chmod -R 755 /data/db /var/log/mongodb
 
-mongod --config /data/mongod.conf --fork
+mongod --config /etc/mongod.conf --fork
 
 sleep 15
 
@@ -15,4 +15,4 @@ mongoimport --username "$MONGO_INITDB_ROOT_USERNAME" \
             --file /data/quotes.json \
             --jsonArray
 
-mongod --config /data/mongod.conf
+mongod --config /etc/mongod.conf

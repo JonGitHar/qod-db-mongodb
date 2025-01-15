@@ -8,6 +8,8 @@ WORKDIR /data
 
 COPY quotes.json run.sh mongod.conf /data/
 
+RUN mv /data/mongod.conf /etc/mongod.conf
+
 RUN chmod +x /data/run.sh
 
 EXPOSE 27017
