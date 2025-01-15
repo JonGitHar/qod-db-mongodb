@@ -8,10 +8,13 @@ ENV MONGODB_USER=user \
 COPY run.sh /usr/local/bin/run.sh
 COPY quotes.json /tmp/quotes.json
 
-RUN chgrp -R 0 /azp && \
-    chmod -R g=u /azp && \ 
-    chmod 775 /usr/local/bin/run.sh
+USER root
+
+RUN chgrp -R 0 /usr/local/bin && \
+    chmod -R g=u /usr/local/bin
 
 EXPOSE 27017
 
 RUN /usr/local/bin/run.sh
+
+USER 1001
