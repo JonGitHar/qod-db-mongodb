@@ -1,21 +1,10 @@
-FROM registry.redhat.io/rhscl/mongodb-34-rhel7
+FROM mongo:latest
 
-ENV MONGODB_USER=user \
-    MONGODB_PASSWORD=pass \
-    MONGODB_DATABASE=qod \
-    MONGODB_ADMIN_PASSWORD=admin_pass
+ENV MONGO_INITDB_ROOT_USERNAME=user \
+    MONGO_INITDB_ROOT_PASSWORD=pass \
+    MONGO_INITDB_DATABASE=qod
 
-COPY run.sh /usr/local/bin/run.sh
-COPY quotes.json /tmp/quotes.json
-
-USER root
-
-RUN chgrp -R 0 /usr/local/bin/run.sh && \
-    chmod -R g=u /usr/local/bin/run.sh 
-RUN chmod +x /usr/local/bin/run.sh
+COPY mongo-init.js /docker-entrypoint-initdb.d/
+COPY quotes.json /docker-entrypoint-initdb.d/
 
 EXPOSE 27017
-
-ENTRYPOINT [ "/usr/local/bin/run.sh" ] 
-
-USER 1001
