@@ -9,7 +9,7 @@ COPY run.sh /usr/local/bin/run.sh
 COPY quotes.json /tmp/quotes.json
 
 RUN chgrp -R 0 /usr/local/bin && \ 
-         chmod -R g=u /usr/local/bin
+    chmod -R g=u /usr/local/bin
 USER 1001
 
 EXPOSE 27017
