@@ -5,8 +5,6 @@ ENV MONGODB_USER=user \
     MONGODB_DATABASE=qod \
     MONGODB_ADMIN_PASSWORD=admin_pass
 
-RUN adduser node root
-
 COPY run.sh /usr/local/bin/run.sh
 COPY quotes.json /tmp/quotes.json
 
