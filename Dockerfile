@@ -6,7 +6,7 @@ ENV MONGO_INITDB_DATABASE=qod
 
 WORKDIR /data
 
-COPY quotes.json run.sh /data/
+COPY quotes.json run.sh mongod.conf /data/
 
 RUN chmod +x /data/run.sh
 
