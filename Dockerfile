@@ -1,17 +1,13 @@
-FROM mongo:latest
+FROM registry.redhat.io/rhscl/mongodb-34-rhel7
 
-ENV MONGO_INITDB_ROOT_USERNAME=user
-ENV MONGO_INITDB_ROOT_PASSWORD=pass
-ENV MONGO_INITDB_DATABASE=qod
+ENV MONGODB_USER=user \
+    MONGODB_PASSWORD=pass \
+    MONGODB_DATABASE=qod \
+    MONGODB_ADMIN_PASSWORD=admin_pass
 
-WORKDIR /data
+COPY run.sh /usr/local/bin/run.sh
+COPY quotes.json /tmp/quotes.json
 
-COPY quotes.json run.sh mongod.conf /data/
+RUN chmod +x /usr/local/bin/run.sh
 
-RUN mv /data/mongod.conf /etc/mongod.conf
-
-RUN chmod +x /data/run.sh
-
-EXPOSE 27017
-
-CMD ["/data/run.sh"]
+ENTRYPOINT ["/usr/local/bin/run.sh"]

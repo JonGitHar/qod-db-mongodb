@@ -1,18 +1,17 @@
 #!/bin/bash
 
-mkdir -p /data/db /var/log/mongodb
-chmod -R 755 /data/db /var/log/mongodb
+mongod &
 
-mongod --config /etc/mongod.conf --fork
-
-sleep 15
-
-mongoimport --username "$MONGO_INITDB_ROOT_USERNAME" \
-            --password "$MONGO_INITDB_ROOT_PASSWORD" \
-            --authenticationDatabase admin \
-            --db "$MONGO_INITDB_DATABASE" \
+until mongo --eval "print(\"waited for connection\")"
+do
+    sleep 2
+done
+mongoimport --db "$MONGODB_DATABASE" \
             --collection quotes \
-            --file /data/quotes.json \
-            --jsonArray
+            --file /tmp/quotes.json \
+            --jsonArray \
+            --username "$MONGODB_USER" \
+            --password "$MONGODB_PASSWORD" \
+            --authenticationDatabase admin
 
-mongod --config /etc/mongod.conf
+fg
