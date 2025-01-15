@@ -5,10 +5,14 @@ ENV MONGODB_USER=user \
     MONGODB_DATABASE=qod \
     MONGODB_ADMIN_PASSWORD=admin_pass
 
+RUN adduser node root
+
 COPY run.sh /usr/local/bin/run.sh
 COPY quotes.json /tmp/quotes.json
 
-USER 1001
+RUN chmod -R 775 /usr/local/bin/run.sh
+RUN chown -R node:root /usr/local/bin/run.sh
+RUN chmod +x /usr/local/bin/run.sh
 
 EXPOSE 27017
 
