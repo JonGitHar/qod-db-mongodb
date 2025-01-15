@@ -4,11 +4,12 @@ ENV MONGO_INITDB_ROOT_USERNAME=user
 ENV MONGO_INITDB_ROOT_PASSWORD=pass
 ENV MONGO_INITDB_DATABASE=qod
 
-COPY run.sh /run.sh
-COPY quotes.json /data/quotes.json
+WORKDIR /data
 
-RUN chmod +x /run.sh
+COPY quotes.json run.sh /data/
+
+RUN chmod +x /data/run.sh
 
 EXPOSE 27017
 
-CMD ["/run.sh"]
+CMD ["/data/run.sh"]

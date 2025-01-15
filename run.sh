@@ -1,13 +1,9 @@
 #!/bin/bash
-mongod --fork --logpath /var/log/mongodb.log
 
-sleep 5
+mongod --fork --logpath /var/log/mongodb.log --bind_ip_all
 
-mongo <<EOF
-use qod
-db.createCollection('quotes')
-EOF
+sleep 15
 
-mongoimport --db qod --collection quotes --file /data/quotes.json --jsonArray
+mongoimport --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin --db $MONGO_INITDB_DATABASE --collection quotes --file /data/quotes.json --jsonArray
 
-tail -f /dev/null
+mongod --config /etc/mongod.conf
