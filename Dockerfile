@@ -10,11 +10,12 @@ COPY quotes.json /tmp/quotes.json
 
 USER root
 
-RUN chgrp -R 0 /usr/local/bin && \
-    chmod -R g=u /usr/local/bin
+RUN chgrp -R 0 /usr/local/bin/run.sh && \
+    chmod -R g=u /usr/local/bin/run.sh 
+RUN chmod +x /usr/local/bin/run.sh
 
 EXPOSE 27017
 
-RUN /usr/local/bin/run.sh
+ENTRYPOINT [ "/usr/local/bin/run.sh" ] 
 
 USER 1001
